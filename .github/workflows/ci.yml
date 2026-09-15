@@ -7,6 +7,11 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    
+    # กำหนดให้รันคำสั่งทั้งหมดในโฟลเดอร์ products-app
+    defaults:
+      run:
+        working-directory: ./products-app
 
     steps:
       - uses: actions/checkout@v4
@@ -14,6 +19,8 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          # บอก GitHub ว่าไฟล์ล็อคแพ็กเกจอยู่ที่ไหน
+          cache-dependency-path: ./products-app/package-lock.json
           
       - run: npm ci
       - run: npm run lint
